@@ -18,5 +18,6 @@ def pascal_triangle(n):
 
         new_row.append(1)  # Last element is always 1
         triangle.append(new_row)
-
+    for row in triangle:
+        print("[{}]".format(",".join([str(x) for x in row])))
     return triangle
