@@ -5,8 +5,6 @@
 
 def pascal_triangle(n):
 
-"""Function for the making of pascal triangle"""
-
     # Check for invalid input
     if n <= 0:
         return []
