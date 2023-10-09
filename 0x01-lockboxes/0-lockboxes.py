@@ -1,23 +1,21 @@
 #!/usr/bin/python3
-"""
-Python module for determing sequential algorithm using
-boxes and keys.
-"""
+'''A module for working with lockboxes.
+'''
+
+
 def canUnlockAll(boxes):
-    """Function checks whether all boxes can be opened 
-    or not
-    """
+    '''Checks if all the boxes in a list of boxes containing the keys
+    (indices) to other boxes can be unlocked given that the first
+    box is unlocked.
+    '''
     n = len(boxes)
-    opened_boxes = [False] * n
-    opened_boxes[0] = True
-    next_box = [0]
-
-    while next_box:
-        current_box = next_box.pop()
-
-        for item in boxes[current_box]:
-            if not opened_boxes[item]:
-                opened_boxes[item] = True
-                next_box.append(item)
-
-    return all(opened_boxes)
+    seen_boxes = set([0])
+    unseen_boxes = set(boxes[0]).difference(set([0]))
+    while len(unseen_boxes) > 0:
+        boxIdx = unseen_boxes.pop()
+        if not boxIdx or boxIdx >= n or boxIdx < 0:
+            continue
+        if boxIdx not in seen_boxes:
+            unseen_boxes = unseen_boxes.union(boxes[boxIdx])
+            seen_boxes.add(boxIdx)
+    return n == len(seen_boxes)
